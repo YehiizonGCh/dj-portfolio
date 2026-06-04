@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: dj-portfolio
+    env: php
+    buildCommand: composer install --no-dev && php artisan migrate --force && php artisan storage:link && pnpm install && pnpm run build
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/data/database.sqlite
